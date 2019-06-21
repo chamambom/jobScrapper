@@ -30,6 +30,10 @@ for item in all_information_technology_jobs:
     job_date = job_dates.find_all('span')[1].text
     print(job_date[3:])
 
+    job_links = item.find('div', class_='item-featured')
+    job_link = (job_links.a)["href"]
+    print(job_link)
+
 
 
 
