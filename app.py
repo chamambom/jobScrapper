@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, Response
 from bs4 import BeautifulSoup
 import requests
 
 app = Flask(__name__)
 
 
-@app.route('/jobs')
+@app.route('/jobs', methods=['GET', 'POST'])
 def jobs():
-    base_url = "https://ngojobsinafrica.com/?post_type=noo_job&s=&location%5B%5D=zimbabwe&category%5B%5D=information-technology"
+    base_url = "https://ngojobsinafrica.com/?post_type=noo_job&s=&location[]=zimbabwe&category[]=information-technology"
     source = requests.get(base_url).text
     soup = BeautifulSoup(source, 'lxml')
 
@@ -35,13 +35,15 @@ def jobs():
         dict = {'JobName': job_name, 'Organisation': company, 'JobType': job_type, 'JobLocation': job_location,
                 'JobExpiry': job_date[3:], 'JobLink': job_link}
 
-    return render_template('index.html', result=dict)
+        return render_template('index.html', result=dict)
 
 
 @app.route('/', methods=['GET'])
 def dropdown():
-    colours = ['Red', 'Blue', 'Black', 'Orange']
-    return render_template('home.html', colours=colours)
+    countries = ['Zimbabwe', 'Zambia', 'Tanzania', 'Swaziland', 'Rwanda', 'Namibia', 'Mozambique', 'Malawi', 'Lesotho',
+                 'Kenya', 'Ethiopia', 'Botswana', 'Africa', 'Eritrea']
+
+    return render_template('home.html', countries=countries)
 
 
 if __name__ == '__main__':

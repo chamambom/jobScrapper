@@ -5,13 +5,21 @@
     <title>Dropdown</title>
 </head>
 <body>
-<select name="colour" method="GET" action="/">
-    <option value="{{ colours[0] }}" selected>{{ colours[0] }}</option>
-    {% for colour in colours[1:] %}
-        <option value="{{ colour }}">{{ colour }}</option>
+<form action="/jobs" method="POST" enctype="multipart/form-data">
+<select name="country">
+    <option value="{{ countries[0] }}" selected>{{ countries[0] }}</option>
+    {% for country in countries[1:] %}
+        <option value="{{ country }}">{{ country }}</option>
     {% endfor %}
 </select>
+ <input type="submit" value="Submit">
+</form>
 
-</select>
+<p>When you select a new car, a function is triggered which outputs the value of the selected car.</p>
+  <div id="result">
+    {% if country is defined %}
+        You have selected: {{ country }}
+    {% endif %}
+  </div>
 </body>
 </html>
