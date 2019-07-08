@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/jobs', methods=['GET', 'POST'])
 def jobs():
-    base_url = "https://ngojobsinafrica.com/?post_type=noo_job&s=&location[]=zimbabwe&category[]=information-technology"
+    base_url = "https://ngojobsinafrica.com/?post_type=noo_job&s=&location[]=ethiopia&category[]=information-technology"
     source = requests.get(base_url).text
     soup = BeautifulSoup(source, 'lxml')
 
@@ -42,7 +42,6 @@ def jobs():
 def dropdown():
     countries = ['Zimbabwe', 'Zambia', 'Tanzania', 'Swaziland', 'Rwanda', 'Namibia', 'Mozambique', 'Malawi', 'Lesotho',
                  'Kenya', 'Ethiopia', 'Botswana', 'Africa', 'Eritrea']
-
     return render_template('home.html', countries=countries)
 
 
