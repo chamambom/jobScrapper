@@ -5,7 +5,7 @@
     <title>Dropdown</title>
 </head>
 <body>
-<form action="/jobs" method="POST" enctype="multipart/form-data">
+<form action ="{{ url_for('jobs') }}" method="post">
 <select name="country">
     <option value="{{ countries[0] }}" selected>{{ countries[0] }}</option>
     {% for country in countries[1:] %}
@@ -15,11 +15,11 @@
  <input type="submit" value="Submit">
 </form>
 
-<p>When you select a new car, a function is triggered which outputs the value of the selected car.</p>
+<{#p>When you select a new car, a function is triggered which outputs the value of the selected car.</p>
   <div id="result">
     {% if country is defined %}
         You have selected: {{ country }}
     {% endif %}
-  </div>
+  </div>#}
 </body>
 </html>
