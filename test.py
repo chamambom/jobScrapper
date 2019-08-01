@@ -11,24 +11,30 @@ all_information_technology_jobs = soup.find_all('div', class_="loop-item-wrap")
 for item in all_information_technology_jobs:
     jobs = item.find('div', class_='item-featured')
     job_name = (jobs.a)["title"]
-    print(job_name)
+
 
     job_links = item.find('div', class_='item-featured')
     job_link = (job_links.a)["href"]
-    print(job_link)
+
 
     companies = item.find('span', class_='job-company')
     company = (companies.a.text)
-    print(company)
+
 
     job_types = item.find('span', class_='job-type')
     job_type = job_types.a.text
-    print(job_type)
+
 
     job_locations = item.find('span', class_='job-location')
     job_location = job_locations.a.text
-    print(job_location)
+
 
     job_dates = item.find('time', class_='entry-date')
     job_date = job_dates.find_all('span')[1].text
-    print(job_date)
+
+
+    dict = {'JobName': job_name, 'Organisation': company, 'JobType': job_type, 'JobLocation': job_location,
+            'JobExpiry': job_date[3:], 'JobLink': job_link}
+
+    print(dict)
+

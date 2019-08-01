@@ -16,29 +16,38 @@ def jobs():
 
         all_information_technology_jobs = soup.find_all('div', class_="loop-item-wrap")
 
-        for item in all_information_technology_jobs:
-            jobs = item.find('div', class_='item-featured')
-            job_name = (jobs.a)["title"]
+        if not all_information_technology_jobs:
+            return render_template('empty.html')
+        else:
+            all_jobs = {}
+            for item in all_information_technology_jobs:
+                jobs = item.find('div', class_='item-featured')
+                job_name = (jobs.a)["title"]
 
-            job_links = item.find('div', class_='item-featured')
-            job_link = (job_links.a)["href"]
+                job_links = item.find('div', class_='item-featured')
+                job_link = (job_links.a)["href"]
 
-            companies = item.find('span', class_='job-company')
-            company = (companies.a.text)
+                companies = item.find('span', class_='job-company')
+                company = (companies.a.text)
 
-            job_types = item.find('span', class_='job-type')
-            job_type = job_types.a.text
+                job_types = item.find('span', class_='job-type')
+                job_type = job_types.a.text
 
-            job_locations = item.find('span', class_='job-location')
-            job_location = job_locations.a.text
+                job_locations = item.find('span', class_='job-location')
+                job_location = job_locations.a.text
 
-            job_dates = item.find('time', class_='entry-date')
-            job_date = job_dates.find_all('span')[1].text
+                job_dates = item.find('time', class_='entry-date')
+                job_date = job_dates.find_all('span')[1].text
 
-            dict = {'JobName': job_name, 'Organisation': company, 'JobType': job_type, 'JobLocation': job_location,
-                    'JobExpiry': job_date[3:], 'JobLink': job_link}
+                all_jobs = {'JobName': job_name, 'Organisation': company, 'JobType': job_type,
+                            'JobLocation': job_location,
+                            'JobExpiry': job_date[3:], 'JobLink': job_link}
+                print(all_jobs)
 
-            return render_template('index.html', result=dict)
+                # for key, value in result.items():
+                # print(key, value)
+
+            return render_template('index.html', results=all_jobs)
 
 
 @app.route('/', methods=['GET'])
@@ -49,4 +58,4 @@ def dropdown():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
